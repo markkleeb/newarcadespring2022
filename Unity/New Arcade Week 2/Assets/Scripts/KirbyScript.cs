@@ -10,10 +10,13 @@ public class KirbyScript : MonoBehaviour
     public KeyCode jump;
     public float speed = 10f;
 
+    private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = gameObject.GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -36,8 +39,30 @@ public class KirbyScript : MonoBehaviour
 
         if (Input.GetKeyDown(jump))
         {
-            transform.Translate(Vector3.up * speed * Time.deltaTime);
+            transform.Translate(Vector3.up * 100 * Time.deltaTime);
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+
+        if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+           // rb.AddForce(Vector3.left * speed);
+        }
+
+        
+        if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            //rb.AddForce(Vector3.right * speed);
+        }
+
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 }
