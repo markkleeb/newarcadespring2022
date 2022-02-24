@@ -10,12 +10,19 @@ public class KirbyScript : MonoBehaviour
     public KeyCode jump;
     public float speed = 10f;
 
+    private bool facingRight = true;
+
+    public Sprite idleSlime;
+    public Sprite jumpSlime;
+
     private Rigidbody2D rb;
+    private SpriteRenderer slimeSR;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        slimeSR = gameObject.GetComponent<SpriteRenderer>();
 
     }
 
@@ -27,20 +34,36 @@ public class KirbyScript : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") < 0)
         {
             Debug.Log("pressing left");
-
+            facingRight = false;
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
 
         //if (Input.GetKey(moveRight))
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
+            facingRight = true;
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(jump))
+        if (Input.GetAxisRaw("Jump") > 0)
         {
-            transform.Translate(Vector3.up * 100 * Time.deltaTime);
+            transform.Translate(Vector3.up * speed * Time.deltaTime);
+            slimeSR.sprite = jumpSlime;
         }
+        else
+        {
+            slimeSR.sprite = idleSlime;
+        }
+
+        if (facingRight)
+        {
+            slimeSR.flipX = false;
+        }
+        else
+        {
+            slimeSR.flipX = true;
+        }
+
 
     }
 
