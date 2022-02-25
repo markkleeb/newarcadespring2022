@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class GameController : MonoBehaviour
     public GameObject life;
 
     private int lives = 3;
+
+    public TMP_Text scoreText;
+    public int score = 0;
+
+    public bool isDead = false;
 
  
     // Start is called before the first frame update
@@ -43,8 +49,27 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+       if(isDead == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(ship, new Vector3(0, -3), Quaternion.identity);
+            isDead = false;
+        }
 
+    }
+
+    public void AddScore()
+    {
+        score += 1;
+        scoreText.text = "Score: " + score;
+
+    }
+
+    public void killed()
+    {
+        isDead = true;
+        GameObject[] lifeSprites = GameObject.FindGameObjectsWithTag("Life");
+        Destroy(lifeSprites[lives - 1]);
+        lives -= 1;
 
     }
 

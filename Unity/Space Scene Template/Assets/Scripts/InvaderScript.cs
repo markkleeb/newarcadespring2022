@@ -6,11 +6,13 @@ public class InvaderScript : MonoBehaviour
 {
     //invader speed variable
     public static float speed = 2;
+    private GameController gcscript;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-
+        gcscript = GameObject.FindObjectOfType<GameController>();
 
     }
 
@@ -53,7 +55,8 @@ public class InvaderScript : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
 
-            //write code to kill the player
+            Destroy(collision.gameObject);
+            gcscript.killed();
 
         }
 

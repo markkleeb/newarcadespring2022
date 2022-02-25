@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShipScript : MonoBehaviour
 {
     //ship speed
-    public float speed = 10;
+    public float speed = 10f;
     //initialize a bullet object
     public GameObject bullet;
     //create an audio source
@@ -37,8 +37,8 @@ public class ShipScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
-            //write code to fire a bullet
-
+            Instantiate(bullet, transform.position, Quaternion.Euler(0, 0, 90));
+            laser.Play();
         }
 
     
